@@ -1,21 +1,17 @@
 import { readFile } from 'fs';
 
 readFile('./input.txt', 'utf8', (err, data) => {
-    let foodArr = data.split('\r\n').map(parseInt);
+    let foodArr = data.split('\r\n').map(d => parseInt(d));
+    let i = 0;
 
     let bags = foodArr.reduce((acc, food) => {
-        if (!Number.isNaN(food)) {
-            return {
-                ...acc,
-                current: acc.current + food
-            }
-        } else {
-            return {
-                current: 0,
-                biggest: acc.current > acc.biggest ? acc.current : acc.biggest
-            }
-        }
-    }, { biggest: 0, current: 0 });
+        if (!Number.isNaN(food))
+            acc[i] = acc[i] != undefined ? acc[i] + food : food;
+        else
+            i++;
+        
+        return acc;
+    }, []);
 
-    console.log('Biggest Bag: ' + bags.biggest);
+    console.log('Biggest Bag: ' + bags.sort().reverse()[0]);
 });
