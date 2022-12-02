@@ -13,7 +13,6 @@ readFile('./input.txt', 'utf8', (err, data) => {
         return acc;
     }, []);
 
-    console.log(bags.sort().reverse());
     console.log('Biggest Bag: ' + bags.sort().reverse()[0]);
     console.log('Top 3 sum: ' + bags.sort().reverse().slice(0,3).reduce((a,b) => a+b, 0));
 });
