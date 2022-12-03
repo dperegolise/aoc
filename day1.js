@@ -1,18 +1,18 @@
-import { readFile } from 'fs';
+import { getInput } from './aoc_util.js' ;
 
-readFile('./input.txt', 'utf8', (err, data) => {
-    let foodArr = data.split('\r\n').map(d => parseInt(d));
-    let i = 0;
+const input = await getInput(1);
 
-    let bags = foodArr.reduce((acc, food) => {
-        if (!Number.isNaN(food))
-            acc[i] = acc[i] != undefined ? acc[i] + food : food;
-        else
-            i++;
-        
-        return acc;
-    }, []);
+let foodArr = input.split('\r\n').map(d => parseInt(d));
+let i = 0;
 
-    console.log('Biggest Bag: ' + bags.sort().reverse()[0]);
-    console.log('Top 3 sum: ' + bags.sort().reverse().slice(0,3).reduce((a,b) => a+b, 0));
-});
+let bags = foodArr.reduce((acc, food) => {
+    if (!Number.isNaN(food))
+        acc[i] = acc[i] != undefined ? acc[i] + food : food;
+    else
+        i++;
+    
+    return acc;
+}, []).sort().reverse();
+
+console.log('Biggest Bag: ' + bags[0]);
+console.log('Top 3 sum: ' + bags.slice(0,3).reduce((a,b) => a+b, 0));
